@@ -3,8 +3,16 @@ using System.Collections;
 
 public class MainCombat : MonoBehaviour {
 
+	bool isAlive = true;
+	bool waiting = false;
+	public GameObject enemy; 
+	public GameObject playerStats;
+
 	// Use this for initialization
 	void Start () {
+		enemy = GameObject.Find ("Enemy");
+		enemyScript = enemy.GetComponent<Enemy> ();
+		playerStats = GameObject.Find ("playerStats");
 	
 	}
 	
@@ -14,7 +22,8 @@ public class MainCombat : MonoBehaviour {
 	}
 
 	public void Attack(){
-		GameObject.Find("Gorilla").GetComponent(Enemy).currentHP = 0;
+		damage = 15;
+		enemyScript.SendMessage ("GetHit", damage);
 	
 	}
 

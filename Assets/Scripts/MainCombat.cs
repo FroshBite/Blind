@@ -12,4 +12,10 @@ public class MainCombat : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void Attack(){
+		GameObject.Find("Gorilla").GetComponent(Enemy).currentHP = 0;
+	
+	}
+
 }

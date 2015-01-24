@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (currentHP == 0) {
+			this.renderer.enabled = false;
+		}
 	}
 }

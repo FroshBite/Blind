@@ -4,11 +4,12 @@ using System.Collections;
 public class Obstacle : MonoBehaviour {
 
 	public int[] position = new int[2];
-	private DungeonMaster dungeonMaster;
+	private Sprite[] wallSprites;
 
 	// Use this for initialization
 	void Start () {
-
+		wallSprites = Resources.LoadAll<Sprite>("Tiles");
+		print (wallSprites.Length);
 	}
 	
 	// Update is called once per frame
@@ -16,9 +17,19 @@ public class Obstacle : MonoBehaviour {
 	
 	}
 
-	public void StartGame(DungeonMaster dm, Vector3 startingPosition) {
-		dungeonMaster = dm;
+	public void StartGame(Vector3 startingPosition, bool floorRight, bool floorDown, bool floorDiagonal) {
 		transform.position = startingPosition;
-		print (position [0] + " " + position [1]);
+
+		if (floorRight && floorDown)
+			GetComponent<SpriteRenderer>().sprite = wallSprites[33];
+
+		else if (floorRight)
+			GetComponent<SpriteRenderer>().sprite = wallSprites[13];
+
+		else if (floorDown)
+			GetComponent<SpriteRenderer>().sprite = wallSprites[1];
+
+		else if (floorDiagonal)
+			GetComponent<SpriteRenderer>().sprite = wallSprites[0];
 	}
 }

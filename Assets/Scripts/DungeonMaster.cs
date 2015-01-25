@@ -4,8 +4,8 @@ using System.Collections;
 public class DungeonMaster : MonoBehaviour {
 
 	public Player player;
-	public EnemyOverworld[] enemies;
-	public Obstacle[] obstacles;
+	private EnemyOverworld[] enemies;
+	private Obstacle[] obstacles;
 
 	private int Columns = 100;
 	private int Rows = 100;
@@ -30,6 +30,9 @@ public class DungeonMaster : MonoBehaviour {
 			}
 		}
 
+		obstacles = FindObjectsOfType(typeof(Obstacle)) as Obstacle[];
+		enemies = FindObjectsOfType(typeof(EnemyOverworld)) as EnemyOverworld[];
+
 		player.StartGame(this, 50, 50, gameNodes[50,50]);
 
 		for(int i=0; i<enemies.Length; i++){
@@ -37,7 +40,13 @@ public class DungeonMaster : MonoBehaviour {
 		}
 
 		for(int i=0; i<obstacles.Length; i++){
-			obstacles[i].StartGame(this, gameNodes[obstacles[i].position[0], obstacles[i].position[1]]);
+			int xPos = obstacles[i].position[0];
+			int yPos = obstacles[i].position[1];
+
+			obstacles[i].StartGame(gameNodes[xPos, yPos],
+			                       checkFloor(xPos + 1, yPos),
+			                       checkFloor(xPos, yPos - 1),
+			                       checkFloor(xPos + 1, yPos - 1));
 		}
 
 		drawGizmos = true;

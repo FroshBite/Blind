@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour {
 	
 	public static int currentHP=100;
 	public static int currentMP=100;
-	public static int dmgMult=0;
+	public static float dmgMult=0;
 
 	public GameObject enemyObject;
 	Enemy enemy;
@@ -66,7 +66,7 @@ public class PlayerStats : MonoBehaviour {
 		if (!isWaiting) {
 			Roll ();
 			int damage = damageCount;
-			damage*=(1+dmgMult);
+			damage*=(int)(1.0f+dmgMult);
 			Debug.Log (string.Format ("HIT FOR {0}", damage));
 			enemy.GetHit (damage);
 			isWaiting = true;
@@ -164,5 +164,12 @@ public class PlayerStats : MonoBehaviour {
 			isWaiting = true;
 			enemy.isWaiting = false;
 		}
+	}
+
+	public void BlessingOfTheBasedGod(){
+		dmgMult += 0.5f;
+		Debug.Log ("Lil B hears your prayer and blesses you.");
+		isWaiting = true;
+		enemy.isWaiting = false;
 	}
 }

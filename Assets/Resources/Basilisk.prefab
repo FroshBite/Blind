@@ -40,10 +40,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6825b9a233d014fe79b2d5c1c1416532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 15
-  atk: 10
-  def: 5
-  currentHP: 15
+  hp: 300
+  atk: 25
+  def: 15
+  currentHP: 300
   sounds: []
   hitsound: {fileID: 0}
   deathsound: {fileID: 0}

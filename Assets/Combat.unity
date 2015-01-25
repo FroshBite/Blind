@@ -107,6 +107,9 @@ MonoBehaviour:
   atk: 10
   def: 5
   currentHP: 15
+  sounds: []
+  hitsound: {fileID: 0}
+  deathsound: {fileID: 0}
 --- !u!4 &169081066
 Transform:
   m_ObjectHideFlags: 0
@@ -893,6 +896,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1127186871}
+  - 114: {fileID: 1127186872}
   m_Layer: 0
   m_Name: playerStats
   m_TagString: Untagged
@@ -912,6 +916,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &1127186872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1127186870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f786d14d035bb2d4ebf165de1a5ece23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackDiceCount: 1
+  AttackDiceSize: 6
+  hp: 15
+  atk: 10
+  def: 5
+  currentHP: 15
+  CombatManagerObject: {fileID: 1685542989}
 --- !u!1 &1140331222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75babb88cd04bc4b98795b3de9f52bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
+  isWaiting: 0
   enemyObject: {fileID: 1815197765}
 --- !u!4 &1685542991
 Transform:
@@ -1565,6 +1589,9 @@ MonoBehaviour:
   atk: 10
   def: 5
   currentHP: 15
+  sounds: []
+  hitsound: {fileID: 0}
+  deathsound: {fileID: 0}
 --- !u!82 &1815197770
 AudioSource:
   m_ObjectHideFlags: 0

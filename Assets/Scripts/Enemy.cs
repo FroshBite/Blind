@@ -14,9 +14,14 @@ public class Enemy : MonoBehaviour {
 
 	bool isAlive = true;
 
+	public GameObject playerObject;
+	PlayerStats player;
+
 
 	// Use this for initialization
 	void Start () {
+		player = playerObject.GetComponent<PlayerStats>();
+
 		int currentHP=15;
 		sounds = GetComponents<AudioSource> ();
 		hitsound = sounds [0];
@@ -27,6 +32,12 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void Attack(){
+		int damage = 5;
+		player.GetHit(damage);
+		
 	}
 
 	public void GetHit(int damage){

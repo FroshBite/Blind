@@ -112,7 +112,7 @@ public class DungeonMaster : MonoBehaviour {
 
 		for (int i = 0; i < enemies.Length; i++){
 			if(enemies[i].currentPosition == player.currentPosition){
-
+				// Switch to battle mode
 			}
 		}
 

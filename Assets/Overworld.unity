@@ -105,6 +105,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 2118481803}
   NodeSpacing: 1
+  playerTurn: 1
 --- !u!4 &775961234
 Transform:
   m_ObjectHideFlags: 0

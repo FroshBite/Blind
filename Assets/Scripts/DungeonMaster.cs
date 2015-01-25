@@ -13,7 +13,7 @@ public class DungeonMaster : MonoBehaviour {
 	private Vector3[,] gameNodes;
 
 	private bool drawGizmos = false;
-	private bool playerTurn = true;
+	public bool playerTurn = true;
 
 	// Use this for initialization
 	void Start () {
@@ -80,6 +80,18 @@ public class DungeonMaster : MonoBehaviour {
 			for(int i=0; i<enemies.Length; i++){
 				int direction = Random.Range(0,4);
 
+				if(enemies[i].currentPosition[1] == player.currentPosition[1]-1)
+					direction = 0;
+				else if(enemies[i].currentPosition[0] == player.currentPosition[0]+1)
+					direction = 1;
+				else if(enemies[i].currentPosition[1] == player.currentPosition[1]+1)
+					direction = 2;
+				else if(enemies[i].currentPosition[0] == player.currentPosition[0]-1)
+					direction = 3;
+				else if((enemies[i].currentPosition[0] == player.currentPosition[0]) && 
+				        (enemies[i].currentPosition[1] == player.currentPosition[1]))
+					direction = 4;
+
 				if(direction == 0){
 					int[] newNode =  new int[2] {enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1};
 					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
@@ -104,14 +116,12 @@ public class DungeonMaster : MonoBehaviour {
 		}
 	}
 
-	public void DoneMove(bool turn){
-
+	public void DoneMove(){
 		for (int i = 0; i < enemies.Length; i++){
 			if(enemies[i].currentPosition == player.currentPosition){
 				Application.LoadLevelAdditive(1);
+				playerTurn = true;
 			}
 		}
-
-		playerTurn = turn;
 	}
 }

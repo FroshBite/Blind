@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour {
 	public static int DiceSize = 6;
 
 	public static int hp=100;
+	public static int mp=100;
 	public static int atk=10;
 	public static int def=5;
 	public int damageCount;
@@ -97,6 +98,68 @@ public class PlayerStats : MonoBehaviour {
 		}
 		else {
 			hitsound.Play();
+		}
+	}
+
+	//Lets put skills here :v
+	public void LesserHeal(){
+		if (!isWaiting && mp>=10) {
+			mp-=10;
+			int basePower = Random.Range(1,51);
+			if (currentHP + basePower >= hp) {
+				currentHP=hp;
+				Debug.Log ("I'm really feeling it!");
+			}else{
+				currentHP +=basePower;
+				if(currentHP / hp <=0.25){
+					Debug.Log ("I'm as good as dead.");
+				}else if(currentHP / hp >0.25 && currentHP / hp <= 0.8){
+					Debug.Log ("I feel a little better.");
+				}else if(currentHP / hp >0.8 && hp!=currentHP){
+					Debug.Log ("A little battered, but still good to go!");
+				}
+			}
+			isWaiting = true;
+			enemy.isWaiting = false;
+		}
+	}
+
+	//Skill does a random action
+	public void Starfall(){
+		if (!isWaiting && mp >= 5) {
+			int selection = Random.Range (1,5);
+			int basePower = Random.Range (1,DiceSize);
+			if(selection==1){//Deal Damage
+				int dmg = (int)basePower*basePower/3;
+				Debug.Log (dmg);
+				enemy.GetHit (dmg);
+			}else if(selection==2){//Heal
+				basePower*=10;
+				if (currentHP + basePower >= hp) {
+					currentHP=hp;
+					Debug.Log ("I'm really feeling it!");
+				}else{
+					currentHP +=basePower;
+					if(currentHP / hp <=0.25){
+						Debug.Log ("I'm as good as dead.");
+					}else if(currentHP / hp >0.25 && currentHP / hp <= 0.8){
+						Debug.Log ("I feel a little better.");
+					}else if(currentHP / hp >0.8 && hp!=currentHP){
+						Debug.Log ("A little battered, but still good to go!");
+					}
+				}
+			}else if(selection==3){
+				for(int i =0;i<5;i++){
+					int dmg = (int)basePower;
+					Debug.Log (dmg);
+					enemy.GetHit (dmg);
+				}
+			}else if(selection==4){
+				Debug.Log ("...Okay. I guess nothing happened :/");
+			}
+
+			isWaiting = true;
+			enemy.isWaiting = false;
 		}
 	}
 }

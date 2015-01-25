@@ -53,10 +53,21 @@ public class Enemy : MonoBehaviour {
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
+
+			//Level up stuff starts here :o
+			Debug.Log ("LEVEL UP:");
+			PlayerStats.atk+=rollLevel ();
+			PlayerStats.hp+=rollLevel ();
+			PlayerStats.DiceSize+=1;
 		}
 		else if(isAlive) {
 			hitsound.Play();
 		}
+	}
+
+	//Rolls the player's stat gains after a level up.
+	public int rollLevel(){
+		return Random.Range (0,7);
 	}
 	
 }

@@ -11,7 +11,7 @@ public class BattleInitialization : MonoBehaviour {
 		GameObject obj = (GameObject)Resources.Load("Slime");
 		GameObject go;
 		go=Instantiate(obj,new Vector3(0,0,0),Quaternion.identity) as GameObject; 
-		go.transform.parent=GameObject.Find("Placeholder").transform;
+		go.transform.parent=GameObject.Find("Enemy").transform;
 		go.transform.position = go.transform.parent.position;
 
 		enemy = enemyObject.GetComponent<Enemy>();

@@ -7,12 +7,12 @@ public class PlayerStats : MonoBehaviour {
 	public bool isWaiting = false;
 	public bool isVictorious = false;
 
-	public int DieCount = 1;
-	public int DiceSize = 6;
+	public static int DieCount = 1;
+	public static int DiceSize = 6;
 
 	public static int hp=100;
-	public int atk=10;
-	public int def=5;
+	public static int atk=10;
+	public static int def=5;
 	public int damageCount;
 	
 	public static int currentHP=100;

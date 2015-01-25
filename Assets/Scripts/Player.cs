@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	
 	public float MoveSpeed = 0.25f;
-	
+
 	public int[] currentPosition = new int[2];
 	
 	private bool isMoving = false;

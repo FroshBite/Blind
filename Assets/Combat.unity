@@ -317,8 +317,9 @@ GameObject:
   - 224: {fileID: 431843649}
   - 222: {fileID: 431843648}
   - 114: {fileID: 431843647}
+  - 114: {fileID: 431843650}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Health Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,6 +374,18 @@ RectTransform:
   m_AnchoredPosition: {x: .021270752, y: .458702087}
   m_SizeDelta: {x: -26.0425415, y: -11.5797539}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &431843650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431843646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5572976cadaeae642a53b56f9d08e21a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 1127186870}
 --- !u!1 &497787488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,10 +1015,6 @@ MonoBehaviour:
   isAlive: 1
   isWaiting: 0
   isVictorious: 0
-  DieCount: 1
-  DiceSize: 6
-  atk: 10
-  def: 5
   damageCount: 0
   enemyObject: {fileID: 1815197765}
   sounds: []

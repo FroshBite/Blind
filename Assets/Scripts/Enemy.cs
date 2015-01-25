@@ -49,14 +49,13 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-	public void patchworkHitFlash(){
-		this.renderer.material.color = Color.white;
-	}
+	//public void patchworkHitFlash(){
+	//	renderer.material.color = Color.white;
+	//}
 
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
-			this.renderer.enabled = false;
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
@@ -64,8 +63,8 @@ public class Enemy : MonoBehaviour {
 		}
 		else if(isAlive) {
 			hitsound.Play();
-			this.renderer.material.color = Color.red;
-			Invoke ("patchworkHitFlash", 0.1f);
+			//renderer.material.color = Color.red;
+			//Invoke ("patchworkHitFlash", 0.1f);
 		}
 	}
 

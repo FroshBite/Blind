@@ -759,7 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d28d13ed9d3f148926828437968441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1127186870}
+  enemyObject: {fileID: 169081064}
 --- !u!114 &540555936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,7 +1654,7 @@ MonoBehaviour:
   isVictorious: 0
   isPressed: 0
   damageCount: 0
-  enemyObject: {fileID: 0}
+  enemyObject: {fileID: 169081064}
   sounds: []
   hitsound: {fileID: 0}
   deathsound: {fileID: 0}
@@ -2294,7 +2294,7 @@ Prefab:
     - target: {fileID: 11473744, guid: 8d60b2fd7fd852d4aad324bde079dbcb, type: 2}
       propertyPath: enemyObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 169081064}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d60b2fd7fd852d4aad324bde079dbcb, type: 2}
   m_RootGameObject: {fileID: 1127186870}

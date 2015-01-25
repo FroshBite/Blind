@@ -18,28 +18,20 @@ public class EnemyHealthIndicator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (enemy.currentHP > 98) {
+		if (enemy.currentHP == enemy.hp) {
+			txt.text = "This mate looks tough!";
+		} else if (enemy.currentHP > enemy.hp * 0.9f) {
+			txt.text = "Just grazed.";
+		} else if (enemy.currentHP > enemy.hp * 0.75f) {
 			txt.text = "This mate ain't so strong!";
-		} else if (enemy.currentHP > 90) {
-			txt.text = "2";
-		} else if (enemy.currentHP > 80) {
-			txt.text = "1";
-		} else if (enemy.currentHP > 70) {
-			txt.text = "3";
-		} else if (enemy.currentHP > 60) {
-			txt.text = "4";
-		} else if (enemy.currentHP > 50) {
-			txt.text = "5";
-		} else if (enemy.currentHP > 40) {
-			txt.text = "6";
-		} else if (enemy.currentHP > 30) {
-			txt.text = "7";
-		} else if (enemy.currentHP > 20) {
-			txt.text = "8";
-		} else if (enemy.currentHP > 10) {
-			txt.text = "9";
+		} else if (enemy.currentHP > enemy.hp * 0.5f) {
+			txt.text = "This mate's looking pretty beat.";
+		} else if (enemy.currentHP > enemy.hp * 0.25f) {
+			txt.text = "Victory is at hand!";
+		} else if (enemy.currentHP > enemy.hp * 0.1f) {
+			txt.text = "A sneeze would kill this mate.";
 		} else {
-			txt.text = "10";
+			txt.text = "This mate is dead!";
 		}
 	}
 

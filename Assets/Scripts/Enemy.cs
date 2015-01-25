@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour {
 	public AudioSource hitsound;
 	public AudioSource deathsound;
 
-	bool isAlive = true;
+	public bool isAlive = true;
+	public bool isWaiting = true;
 
 	public GameObject playerObject;
 	PlayerStats player;
@@ -31,13 +32,17 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (!isWaiting) {
+			Attack ();
+		}
 	}
 
 	public void Attack(){
-		int damage = 5;
-		player.GetHit(damage);
-		
+		int damage = atk;
+		player.GetHit (damage);
+		Debug.Log (damage);
+		isWaiting = true;
+		player.isWaiting = false;
 	}
 
 	public void GetHit(int damage){

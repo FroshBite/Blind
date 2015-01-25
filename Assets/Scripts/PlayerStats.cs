@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour {
 	public int damageCount;
 	
 	public static int currentHP=100;
+	public static int currentMP=100;
+	public static int dmgMult=0;
 
 	public GameObject enemyObject;
 	Enemy enemy;
@@ -64,7 +66,8 @@ public class PlayerStats : MonoBehaviour {
 		if (!isWaiting) {
 			Roll ();
 			int damage = damageCount;
-			Debug.Log (string.Format ("HIT FOR {0}", damageCount));
+			damage*=(1+dmgMult);
+			Debug.Log (string.Format ("HIT FOR {0}", damage));
 			enemy.GetHit (damage);
 			isWaiting = true;
 			enemy.isWaiting = false;

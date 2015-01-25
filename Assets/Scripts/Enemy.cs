@@ -88,6 +88,5 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.currentHP = PlayerStats.hp;
 		PlayerStats.currentMP = PlayerStats.mp;
 	}
-	
 }
 

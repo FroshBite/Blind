@@ -49,6 +49,7 @@ public class PlayerStats : MonoBehaviour {
 	
 	}
 
+
 	public void Roll(){
 		if(!isWaiting){
 			damageCount = 0;

@@ -19,6 +19,8 @@ public class HealthIndicator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		txt.text = "TEST";
+		if (PlayerStats.currentHP < 100) {
+				txt.text = "I'm in trouble";
+		}
 	}
 }

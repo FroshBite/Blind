@@ -1429,6 +1429,7 @@ GameObject:
   - 222: {fileID: 1095006182}
   - 114: {fileID: 1095006181}
   - 114: {fileID: 1095006180}
+  - 114: {fileID: 1095006183}
   m_Layer: 5
   m_Name: Skill1
   m_TagString: Untagged
@@ -1522,6 +1523,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1095006178}
+--- !u!114 &1095006183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1095006178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &1113911459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2635,6 +2654,7 @@ GameObject:
   - 222: {fileID: 2002458696}
   - 114: {fileID: 2002458695}
   - 114: {fileID: 2002458694}
+  - 114: {fileID: 2002458697}
   m_Layer: 5
   m_Name: Skill3
   m_TagString: Untagged
@@ -2728,6 +2748,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2002458692}
+--- !u!114 &2002458697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2002458692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &2007596303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,6 +2777,7 @@ GameObject:
   - 222: {fileID: 2007596307}
   - 114: {fileID: 2007596306}
   - 114: {fileID: 2007596305}
+  - 114: {fileID: 2007596308}
   m_Layer: 5
   m_Name: Skill2
   m_TagString: Untagged
@@ -2832,6 +2871,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2007596303}
+--- !u!114 &2007596308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2007596303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &2100898895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,6 +2900,7 @@ GameObject:
   - 222: {fileID: 2100898899}
   - 114: {fileID: 2100898898}
   - 114: {fileID: 2100898897}
+  - 114: {fileID: 2100898900}
   m_Layer: 5
   m_Name: Skill4
   m_TagString: Untagged
@@ -2936,3 +2994,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2100898895}
+--- !u!114 &2100898900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2100898895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

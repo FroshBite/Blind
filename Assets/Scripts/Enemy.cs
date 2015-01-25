@@ -22,8 +22,6 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = playerObject.GetComponent<PlayerStats>();
-
-		int currentHP=15;
 		sounds = GetComponents<AudioSource> ();
 		hitsound = sounds [0];
 		deathsound = sounds[1];
@@ -33,10 +31,15 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!isWaiting && isAlive) {
+			Invoke ("patchworkPlayerPressDelay", 1);
 			Invoke("Attack", 1);
 			isWaiting = true;
 			player.isWaiting = false;
 		}
+	}
+
+	public void patchworkPlayerPressDelay(){
+		player.isPressed = false;
 	}
 
 	public void Attack(){
@@ -44,6 +47,10 @@ public class Enemy : MonoBehaviour {
 		player.GetHit (damage);
 		Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
 
+	}
+
+	public void patchworkHitFlash(){
+		this.renderer.material.color = Color.white;
 	}
 
 	public void GetHit(int damage){
@@ -57,6 +64,8 @@ public class Enemy : MonoBehaviour {
 		}
 		else if(isAlive) {
 			hitsound.Play();
+			this.renderer.material.color = Color.red;
+			Invoke ("patchworkHitFlash", 0.1f);
 		}
 	}
 

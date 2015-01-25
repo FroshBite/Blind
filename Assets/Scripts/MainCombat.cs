@@ -8,6 +8,8 @@ public class MainCombat : MonoBehaviour {
 	public GameObject enemyObject;
 	Enemy enemy;
 
+
+
 	// Use this for initialization
 	void Start () {
 		enemy = enemyObject.GetComponent<Enemy>();
@@ -18,7 +20,7 @@ public class MainCombat : MonoBehaviour {
 	}
 
 	public void Attack(){
-		int damage = 15;
+		int damage = 5;
 		enemy.GetHit(damage);
 	
 	}

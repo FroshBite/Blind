@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
 
 	public int[] currentPosition = new int[2];
 	
-	private bool isMoving = false;
+	public bool isMoving = false;
 	private Vector3 targetPosition;
 	private DungeonMaster dungeonMaster;
 

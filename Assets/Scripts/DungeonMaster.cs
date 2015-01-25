@@ -5,6 +5,7 @@ public class DungeonMaster : MonoBehaviour {
 
 	public Player player;
 	public EnemyOverworld[] enemies;
+	public Obstacle[] obstacles;
 
 	private int Columns = 100;
 	private int Rows = 100;
@@ -35,6 +36,10 @@ public class DungeonMaster : MonoBehaviour {
 			enemies[i].StartGame(this, 51, 50+i, gameNodes[51, 50+i]);
 		}
 
+		for(int i=0; i<obstacles.Length; i++){
+			obstacles[i].StartGame(this, gameNodes[obstacles[i].position[0], obstacles[i].position[1]]);
+		}
+
 		drawGizmos = true;
 	}
 
@@ -53,32 +58,24 @@ public class DungeonMaster : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (playerTurn){
+		if (playerTurn && !player.isMoving){
 
-			if(Input.GetKeyDown(KeyCode.W)){
-				int[] newNode =  new int[2] {player.currentPosition[0], player.currentPosition[1]+1};
-				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-			}
+			if(Input.GetKeyDown(KeyCode.W))
+				movePlayer(player.currentPosition[0], player.currentPosition[1]+1);
 
-			if(Input.GetKeyDown(KeyCode.A)){
-				int[] newNode =  new int[2] {player.currentPosition[0]-1, player.currentPosition[1]};
-				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-			}
+			else if(Input.GetKeyDown(KeyCode.A))
+				movePlayer(player.currentPosition[0]-1, player.currentPosition[1]);
 
-			if(Input.GetKeyDown(KeyCode.S)){
-				int[] newNode =  new int[2] {player.currentPosition[0], player.currentPosition[1]-1};
-				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-			}
+			else if(Input.GetKeyDown(KeyCode.S))
+				movePlayer(player.currentPosition[0], player.currentPosition[1]-1);
 
-			if(Input.GetKeyDown(KeyCode.D)){
-				int[] newNode =  new int[2] {player.currentPosition[0]+1, player.currentPosition[1]};
-				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-			}
+			else if(Input.GetKeyDown(KeyCode.D))
+				movePlayer(player.currentPosition[0]+1, player.currentPosition[1]);
 		}
 
-		else {
+		else if (!player.isMoving){
 			for(int i=0; i<enemies.Length; i++){
-				int direction = Random.Range(0,4);
+				int direction;
 
 				if(enemies[i].currentPosition[1] == player.currentPosition[1]-1)
 					direction = 0;
@@ -91,29 +88,45 @@ public class DungeonMaster : MonoBehaviour {
 				else if((enemies[i].currentPosition[0] == player.currentPosition[0]) && 
 				        (enemies[i].currentPosition[1] == player.currentPosition[1]))
 					direction = 4;
+				else
+					direction = Random.Range(0,4);
 
-				if(direction == 0){
-					int[] newNode =  new int[2] {enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1};
-					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-				}
-				
-				if(direction == 1){
-					int[] newNode =  new int[2] {enemies[i].currentPosition[0]-1, enemies[i].currentPosition[1]};
-					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-				}
-				
-				if(direction == 2){
-					int[] newNode =  new int[2] {enemies[i].currentPosition[0], enemies[i].currentPosition[1]-1};
-					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-				}
-				
-				if(direction == 3){
-					int[] newNode =  new int[2] {enemies[i].currentPosition[0]+1, enemies[i].currentPosition[1]};
-					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
-				}
+				if(direction == 0)
+					moveEnemy(enemies[i], enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1);
+				else if(direction == 1)
+					moveEnemy(enemies[i], enemies[i].currentPosition[0]-1, enemies[i].currentPosition[1]);
+				else if(direction == 2)
+					moveEnemy(enemies[i], enemies[i].currentPosition[0], enemies[i].currentPosition[1]-1);
+				else if(direction == 3)
+					moveEnemy(enemies[i], enemies[i].currentPosition[0]+1, enemies[i].currentPosition[1]);
 			}
 			playerTurn = true;
 		}
+	}
+
+	void movePlayer(int xPos, int yPos){
+		if(checkFloor(xPos, yPos))
+			player.Move (xPos, yPos, gameNodes [xPos, yPos]);
+	}
+
+	void moveEnemy(EnemyOverworld enemy, int xPos, int yPos){
+		for (int i = 0; i < enemies.Length; i++){
+			if((enemies[i].currentPosition[0] == xPos) && 
+			   (enemies[i].currentPosition[1] == yPos))
+				return;
+		}
+
+		if(checkFloor(xPos, yPos))
+			enemy.Move (xPos, yPos, gameNodes [xPos, yPos]);
+	}
+
+	bool checkFloor(int xPos, int yPos){
+		 for (int i = 0; i < obstacles.Length; i++) {
+			if((obstacles[i].position[0] == xPos) && 
+			   (obstacles[i].position[1] == yPos))
+				return false;
+		}
+		return true;
 	}
 
 	public void DoneMove(){

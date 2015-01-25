@@ -17,8 +17,6 @@ public class PlayerStats : MonoBehaviour {
 	public int damageCount;
 	
 	public static int currentHP=100;
-	public static int currentMP=100;
-	public static int dmgMult = 0;
 
 	public GameObject enemyObject;
 	Enemy enemy;
@@ -62,14 +60,11 @@ public class PlayerStats : MonoBehaviour {
 
 	}
 
-	//So like, how does damageCount get reset?
-	//Also, kinda changed the debug message's damage number to whatever damage was. Not sure is we should change it back
 	public void Attack(){
 		if (!isWaiting) {
 			Roll ();
 			int damage = damageCount;
-			damage*=(1+dmgMult);//Added damage Multiplier;
-			Debug.Log (string.Format ("HIT FOR {0}", damage));
+			Debug.Log (string.Format ("HIT FOR {0}", damageCount));
 			enemy.GetHit (damage);
 			isWaiting = true;
 			enemy.isWaiting = false;
@@ -83,7 +78,6 @@ public class PlayerStats : MonoBehaviour {
 			Debug.Log (string.Format ("ESCAPE CHECK: {0}", damageCount));
 			if (escapism > enemy.atk){
 				Debug.Log ("ESCAPE SUCCESS");
-				enemy.exitBattle();
 				Debug.Log ("Application.LoadLevel (0)");
 			}
 			else{
@@ -109,7 +103,7 @@ public class PlayerStats : MonoBehaviour {
 
 	//Lets put skills here :v
 	public void LesserHeal(){
-		if (!isWaiting && currentMP>=10) {
+		if (!isWaiting && mp>=10) {
 			mp-=10;
 			int basePower = Random.Range(1,51);
 			if (currentHP + basePower >= hp) {
@@ -132,7 +126,7 @@ public class PlayerStats : MonoBehaviour {
 
 	//Skill does a random action
 	public void Starfall(){
-		if (!isWaiting && currentMP >= 5) {
+		if (!isWaiting && mp >= 5) {
 			int selection = Random.Range (1,5);
 			int basePower = Random.Range (1,DiceSize);
 			if(selection==1){//Deal Damage

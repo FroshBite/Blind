@@ -8,10 +8,24 @@ public class Enemy : MonoBehaviour {
 	
 	public int currentHP=15;
 
+	public AudioSource[] sounds;
+	public AudioSource hitsound;
+	public AudioSource deathsound;
+
+	bool isAlive = true;
+
+	public GameObject playerObject;
+	PlayerStats player;
+
 
 	// Use this for initialization
 	void Start () {
+		player = playerObject.GetComponent<PlayerStats>();
+
 		int currentHP=15;
+		sounds = GetComponents<AudioSource> ();
+		hitsound = sounds [0];
+		deathsound = sounds[1];
 	}
 
 	
@@ -20,10 +34,23 @@ public class Enemy : MonoBehaviour {
 	
 	}
 
+	public void Attack(){
+		int damage = 5;
+		player.GetHit(damage);
+		
+	}
+
 	public void GetHit(int damage){
 		currentHP -= damage;
-		if (currentHP <= 0) {
+		if (currentHP <= 0 && isAlive) {
 			this.renderer.enabled = false;
+			deathsound.Play();
+			isAlive= false;
+		}
+		else {
+			hitsound.Play();
 		}
 	}
+	
 }
+

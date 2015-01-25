@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 114: {fileID: 11461042}
-  - 114: {fileID: 11492960}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -41,29 +40,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e561e46ff90e9642a5776f2190175b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: .25
-  currentPosition: 0000000000000000
---- !u!114 &11492960
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6825b9a233d014fe79b2d5c1c1416532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 15
-  atk: 10
-  def: 5
-  currentHP: 15
-  sounds: []
-  hitsound: {fileID: 0}
-  deathsound: {fileID: 0}
-  isAlive: 1
-  isWaiting: 1
-  playerObject: {fileID: 118884, guid: 1916de36fb598d3449f2b299d75d35c6, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -183,7 +183,7 @@ MonoBehaviour:
   deathsound: {fileID: 0}
   isAlive: 1
   isWaiting: 1
-  playerObject: {fileID: 118884, guid: 1916de36fb598d3449f2b299d75d35c6, type: 2}
+  playerObject: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

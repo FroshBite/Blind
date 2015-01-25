@@ -49,7 +49,7 @@ public class PlayerStats : MonoBehaviour {
 
 	public void Roll(){
 		if(!isWaiting){
-
+			damageCount = 0;
 			for (int diceNumber = 1; diceNumber <= DieCount; diceNumber++) {
 				int roll = Random.Range (1, DiceSize + 1);
 				damageCount += roll;

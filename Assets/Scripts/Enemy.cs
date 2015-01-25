@@ -33,16 +33,17 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!isWaiting && isAlive) {
-			Attack ();
+			Invoke("Attack", 1);
+			isWaiting = true;
+			player.isWaiting = false;
 		}
 	}
 
 	public void Attack(){
 		int damage = atk;
 		player.GetHit (damage);
-		Debug.Log (damage);
-		isWaiting = true;
-		player.isWaiting = false;
+		Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
+
 	}
 
 	public void GetHit(int damage){

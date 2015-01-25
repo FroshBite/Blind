@@ -5,6 +5,7 @@ public class PlayerStats : MonoBehaviour {
 
 	public bool isAlive = true;
 	public bool isWaiting = false;
+	public bool isVictorious = false;
 
 	public int DieCount = 1;
 	public int DiceSize = 6;
@@ -28,8 +29,7 @@ public class PlayerStats : MonoBehaviour {
 		sounds = GetComponents<AudioSource> ();
 		hitsound = sounds [0];
 		deathsound = sounds[1];
-		
-		int currentHP = 100;
+
 		enemy = enemyObject.GetComponent<Enemy>();
 	}
 	
@@ -38,6 +38,10 @@ public class PlayerStats : MonoBehaviour {
 
 		if (!isAlive) {
 			Debug.Log ("GAME OVER");
+		}
+
+		if (!enemy.isAlive) {
+			isVictorious = true;
 		}
 	
 	}
@@ -59,10 +63,28 @@ public class PlayerStats : MonoBehaviour {
 		if (!isWaiting) {
 			Roll ();
 			int damage = damageCount;
-			Debug.Log (damageCount);
+			Debug.Log (string.Format ("HIT FOR {0}", damageCount));
 			enemy.GetHit (damage);
 			isWaiting = true;
 			enemy.isWaiting = false;
+		}
+	}
+
+	public void Escape(){
+		if (!isWaiting) {
+			Roll ();
+			int escapism = damageCount;
+			Debug.Log (string.Format ("ESCAPE CHECK: {0}", damageCount));
+			if (escapism > enemy.atk){
+				Debug.Log ("ESCAPE SUCCESS");
+				Debug.Log ("Application.LoadLevel (0)");
+			}
+			else{
+				Debug.Log ("COULDN'T ESCAPE");
+				isWaiting = true;
+				enemy.isWaiting = false;
+			}
+
 		}
 	}
 
@@ -70,7 +92,6 @@ public class PlayerStats : MonoBehaviour {
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
-			this.renderer.enabled = false;
 			deathsound.Play();
 			isAlive = false;
 		}

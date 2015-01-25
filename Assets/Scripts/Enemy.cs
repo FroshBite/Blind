@@ -18,9 +18,12 @@ public class Enemy : MonoBehaviour {
 	public GameObject playerObject;
 	PlayerStats player;
 
+	Vector3 startingPosition;
+
 
 	// Use this for initialization
 	void Start () {
+		startingPosition = transform.position;
 		player = playerObject.GetComponent<PlayerStats>();
 		sounds = GetComponents<AudioSource> ();
 		hitsound = sounds [0];
@@ -43,9 +46,11 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void Attack(){
+		transform.position = new Vector3 (transform.position.x, transform.position.y - 1, transform.position.x);
 		int damage = atk;
 		player.GetHit (damage);
 		Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
+		transform.position = startingPosition;
 
 	}
 

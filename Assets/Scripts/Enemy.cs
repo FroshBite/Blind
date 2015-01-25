@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isWaiting) {
+		if (!isWaiting && isAlive) {
 			Attack ();
 		}
 	}
@@ -51,8 +51,9 @@ public class Enemy : MonoBehaviour {
 			this.renderer.enabled = false;
 			deathsound.Play();
 			isAlive= false;
+			Debug.Log ("VICTORY");
 		}
-		else {
+		else if(isAlive) {
 			hitsound.Play();
 		}
 	}

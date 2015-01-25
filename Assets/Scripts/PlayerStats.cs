@@ -19,8 +19,16 @@ public class PlayerStats : MonoBehaviour {
 	public GameObject enemyObject;
 	Enemy enemy;
 
+	public AudioSource[] sounds;
+	public AudioSource hitsound;
+	public AudioSource deathsound;
+	
 	// Use this for initialization
 	void Start () {
+		sounds = GetComponents<AudioSource> ();
+		hitsound = sounds [0];
+		deathsound = sounds[1];
+		
 		int currentHP = 100;
 		enemy = enemyObject.GetComponent<Enemy>();
 	}
@@ -63,11 +71,11 @@ public class PlayerStats : MonoBehaviour {
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
 			this.renderer.enabled = false;
-
+			deathsound.Play();
 			isAlive = false;
 		}
 		else {
-
+			hitsound.Play();
 		}
 	}
 }

@@ -104,8 +104,6 @@ MonoBehaviour:
   player: {fileID: 842051240}
   enemies:
   - {fileID: 2118481803}
-  Columns: 10
-  Rows: 10
   NodeSpacing: 1
 --- !u!4 &775961234
 Transform:
@@ -147,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631769969537646dcb072ac859169d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: 5
   MoveSpeed: .25
   currentPosition: 0000000000000000
 --- !u!212 &842051241
@@ -179,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 842051239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .970000029, y: .370000005, z: 0}
+  m_LocalPosition: {x: -1.83000004, y: -1.45000005, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -196,6 +193,7 @@ GameObject:
   - 92: {fileID: 1922350395}
   - 124: {fileID: 1922350394}
   - 81: {fileID: 1922350393}
+  - 114: {fileID: 1922350398}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -268,6 +266,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1922350398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1922350392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb00bc94dedb4bfe95f6852b1119b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2118481802
 GameObject:
   m_ObjectHideFlags: 0

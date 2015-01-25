@@ -6,8 +6,8 @@ public class DungeonMaster : MonoBehaviour {
 	public Player player;
 	public EnemyOverworld[] enemies;
 
-	public int Columns = 100;
-	public int Rows = 100;
+	private int Columns = 100;
+	private int Rows = 100;
 
 	public float NodeSpacing = 0.25f;
 	private Vector3[,] gameNodes;
@@ -25,14 +25,15 @@ public class DungeonMaster : MonoBehaviour {
 				float xPos = (x * 1.0f) * NodeSpacing;
 				float yPos = (y * 1.0f) * NodeSpacing;
 
-				gameNodes[x, y] = new Vector3( xPos, yPos, transform.position.z);
+				gameNodes[x, y] = new Vector3(xPos, yPos, transform.position.z);
 			}
 		}
 
-		player.StartGame(this, gameNodes[50,50]);
+		player.StartGame(this, 50, 50, gameNodes[50,50]);
 
-		for(int i=0; i<enemies.Length; i++)
-			enemies[i].StartGame(this, gameNodes[51, 50+i]);
+		for(int i=0; i<enemies.Length; i++){
+			enemies[i].StartGame(this, 51, 50+i, gameNodes[51, 50+i]);
+		}
 
 		drawGizmos = true;
 	}
@@ -55,27 +56,23 @@ public class DungeonMaster : MonoBehaviour {
 		if (playerTurn){
 
 			if(Input.GetKeyDown(KeyCode.W)){
-				int[] newNode = {player.currentPosition[0], player.currentPosition[1]+1};
-				player.Move(newNode, gameNodes[newNode[0], newNode[1]]);
-				playerTurn = false;
+				int[] newNode =  new int[2] {player.currentPosition[0], player.currentPosition[1]+1};
+				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 			}
 
 			if(Input.GetKeyDown(KeyCode.A)){
-				int[] newNode = {player.currentPosition[0]-1, player.currentPosition[1]};
-				player.Move(newNode, gameNodes[newNode[0], newNode[1]]);
-				playerTurn = false;
+				int[] newNode =  new int[2] {player.currentPosition[0]-1, player.currentPosition[1]};
+				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 			}
 
 			if(Input.GetKeyDown(KeyCode.S)){
-				int[] newNode = {player.currentPosition[0], player.currentPosition[1]-1};
-				player.Move(newNode, gameNodes[newNode[0], newNode[1]]);
-				playerTurn = false;
+				int[] newNode =  new int[2] {player.currentPosition[0], player.currentPosition[1]-1};
+				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 			}
 
 			if(Input.GetKeyDown(KeyCode.D)){
-				int[] newNode = {player.currentPosition[0]+1, player.currentPosition[1]};
-				player.Move(newNode, gameNodes[newNode[0], newNode[1]]);
-				playerTurn = false;
+				int[] newNode =  new int[2] {player.currentPosition[0]+1, player.currentPosition[1]};
+				player.Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 			}
 		}
 
@@ -84,38 +81,37 @@ public class DungeonMaster : MonoBehaviour {
 				int direction = Random.Range(0,4);
 
 				if(direction == 0){
-					int[] newNode = {enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1};
-					enemies[i].Move(newNode, gameNodes[newNode[0], newNode[1]]);
+					int[] newNode =  new int[2] {enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1};
+					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 				}
 				
 				if(direction == 1){
-					int[] newNode = {enemies[i].currentPosition[0]-1, enemies[i].currentPosition[1]};
-					enemies[i].Move(newNode, gameNodes[newNode[0], newNode[1]]);
+					int[] newNode =  new int[2] {enemies[i].currentPosition[0]-1, enemies[i].currentPosition[1]};
+					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 				}
 				
 				if(direction == 2){
-					int[] newNode = {enemies[i].currentPosition[0], enemies[i].currentPosition[1]-1};
-					enemies[i].Move(newNode, gameNodes[newNode[0], newNode[1]]);
+					int[] newNode =  new int[2] {enemies[i].currentPosition[0], enemies[i].currentPosition[1]-1};
+					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 				}
 				
 				if(direction == 3){
-					int[] newNode = {enemies[i].currentPosition[0]+1, enemies[i].currentPosition[1]};
-					enemies[i].Move(newNode, gameNodes[newNode[0], newNode[1]]);
+					int[] newNode =  new int[2] {enemies[i].currentPosition[0]+1, enemies[i].currentPosition[1]};
+					enemies[i].Move(newNode[0], newNode[1], gameNodes[newNode[0], newNode[1]]);
 				}
 			}
-
 			playerTurn = true;
 		}
 	}
 
-	public void DoneMove(){
+	public void DoneMove(bool turn){
 
 		for (int i = 0; i < enemies.Length; i++){
 			if(enemies[i].currentPosition == player.currentPosition){
-				// Switch to battle mode
+				Application.LoadLevelAdditive(1);
 			}
 		}
 
-		playerTurn = false;
+		playerTurn = turn;
 	}
 }

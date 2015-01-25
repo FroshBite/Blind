@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-
-	public int stamina = 5;
+	
 	public float MoveSpeed = 0.25f;
 	
 	public int[] currentPosition = new int[2];
@@ -14,8 +13,6 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentPosition[0] = 0;
-		currentPosition[1] = 0;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +25,7 @@ public class Player : MonoBehaviour {
 				transform.position = targetPosition;
 				isMoving = false;
 
-				dungeonMaster.DoneMove();
+				dungeonMaster.DoneMove(false);
 			}
 			else
 			{
@@ -37,13 +34,16 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void StartGame( DungeonMaster dm, Vector3 startingPosition ) {
+	public void StartGame(DungeonMaster dm, int xPos, int yPos, Vector3 startingPosition) {
 		dungeonMaster = dm;
+		currentPosition[0] = xPos;
+		currentPosition[1] = yPos;
 		transform.position = startingPosition;
 	}
 	
-	public void Move(int[] nodeCoordinates, Vector3 position) {
-		currentPosition = nodeCoordinates;
+	public void Move(int xPos, int yPos, Vector3 position) {
+		currentPosition[0] = xPos;
+		currentPosition[1] = yPos;
 		targetPosition = position;
 		
 		isMoving = true;

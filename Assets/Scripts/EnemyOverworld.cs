@@ -12,8 +12,6 @@ public class EnemyOverworld : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentPosition[0] = 1;
-		currentPosition[1] = 1;
 	}
 	
 	// Update is called once per frame
@@ -26,7 +24,7 @@ public class EnemyOverworld : MonoBehaviour {
 				transform.position = targetPosition;
 				isMoving = false;
 				
-				dungeonMaster.DoneMove();
+				dungeonMaster.DoneMove(true);
 			}
 			else
 			{
@@ -35,13 +33,16 @@ public class EnemyOverworld : MonoBehaviour {
 		}
 	}
 
-	public void StartGame( DungeonMaster dm, Vector3 startingPosition ) {
+	public void StartGame(DungeonMaster dm, int xPos, int yPos, Vector3 startingPosition) {
 		dungeonMaster = dm;
+		currentPosition[0] = xPos;
+		currentPosition[1] = yPos;
 		transform.position = startingPosition;
 	}
-
-	public void Move(int[] nodeCoordinates, Vector3 position) {
-		currentPosition = nodeCoordinates;
+	
+	public void Move(int xPos, int yPos, Vector3 position) {
+		currentPosition[0] = xPos;
+		currentPosition[1] = yPos;
 		targetPosition = position;
 		
 		isMoving = true;

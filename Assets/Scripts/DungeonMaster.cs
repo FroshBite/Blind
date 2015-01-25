@@ -6,6 +6,7 @@ public class DungeonMaster : MonoBehaviour {
 	public Player player;
 	private EnemyOverworld[] enemies;
 	private Obstacle[] obstacles;
+	private GameObject floor;
 
 	private int Columns = 100;
 	private int Rows = 100;
@@ -19,6 +20,8 @@ public class DungeonMaster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		floor = (GameObject)Resources.Load("Floor");
+
 		gameNodes = new Vector3[Rows, Columns];
 
 		for(int y = 0; y < Columns; y++){
@@ -48,6 +51,16 @@ public class DungeonMaster : MonoBehaviour {
 			                       checkFloor(xPos + 1, yPos),
 			                       checkFloor(xPos, yPos - 1),
 			                       checkFloor(xPos + 1, yPos - 1));
+		}
+
+		for(int y = 0; y < Columns; y++){
+			for( int x = 0; x < Rows; x++ ){
+				if(checkFloor(x, y)){
+					Vector3 Location = new Vector3(gameNodes[x, y].x, gameNodes[x, y].y, 10);
+
+					Instantiate(floor, Location, Quaternion.identity);
+				}
+			}
 		}
 
 		drawGizmos = true;

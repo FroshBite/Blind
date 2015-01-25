@@ -8,8 +8,10 @@ public class Obstacle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		position [0] = (int)transform.position.x;
+		position [1] = (int)transform.position.y;
+
 		wallSprites = Resources.LoadAll<Sprite>("Tiles");
-		print (wallSprites.Length);
 	}
 	
 	// Update is called once per frame

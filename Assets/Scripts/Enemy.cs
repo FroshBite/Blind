@@ -75,7 +75,6 @@ public class Enemy : MonoBehaviour {
 	}
 
 	//General battle exit function, use this at the end of every battle
-	//Still has to exit scene
 	public void exitBattle(){
 		//Level up stuff starts here :o
 		Debug.Log ("LEVEL UP:");
@@ -87,6 +86,9 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.dmgMult=0;
 		PlayerStats.currentHP = PlayerStats.hp;
 		PlayerStats.currentMP = PlayerStats.mp;
+
+		//Exit Scene
+		Application.Quit ();
 	}
 }
 

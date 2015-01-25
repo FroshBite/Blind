@@ -55,11 +55,6 @@ public class Enemy : MonoBehaviour {
 			Debug.Log ("VICTORY");
 			exitBattle ();
 
-			//Level up stuff starts here :o
-			Debug.Log ("LEVEL UP:");
-			PlayerStats.atk+=rollLevel ();
-			PlayerStats.hp+=rollLevel ();
-			PlayerStats.DiceSize+=1;
 		}
 		else if(isAlive) {
 			hitsound.Play();

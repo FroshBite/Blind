@@ -26,4 +26,6 @@ public class Enemy : MonoBehaviour {
 			this.renderer.enabled = false;
 		}
 	}
+	
 }
+

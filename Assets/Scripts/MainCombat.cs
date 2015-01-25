@@ -18,7 +18,7 @@ public class MainCombat : MonoBehaviour {
 	}
 
 	public void Attack(){
-		int damage = 15;
+		int damage = 14;
 		enemy.GetHit(damage);
 	
 	}

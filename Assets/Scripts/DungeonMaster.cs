@@ -15,6 +15,7 @@ public class DungeonMaster : MonoBehaviour {
 
 	private bool drawGizmos = false;
 	public bool playerTurn = true;
+	private bool inBattle = false;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,17 @@ public class DungeonMaster : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (!inBattle){
+			for (int i = 0; i < enemies.Length; i++){
+				if((enemies[i].currentPosition[0] == player.currentPosition[0]) &&
+				   (enemies[i].currentPosition[1] == player.currentPosition[1])){
+					Application.LoadLevelAdditive(1);
+					inBattle = true;
+					playerTurn = true;
+				}
+			}
+		}
+
 		if (playerTurn && !player.isMoving){
 
 			if(Input.GetKeyDown(KeyCode.W))
@@ -127,14 +139,5 @@ public class DungeonMaster : MonoBehaviour {
 				return false;
 		}
 		return true;
-	}
-
-	public void DoneMove(){
-		for (int i = 0; i < enemies.Length; i++){
-			if(enemies[i].currentPosition == player.currentPosition){
-				Application.LoadLevelAdditive(1);
-				playerTurn = true;
-			}
-		}
 	}
 }

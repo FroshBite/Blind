@@ -23,8 +23,6 @@ public class EnemyOverworld : MonoBehaviour {
 			{
 				transform.position = targetPosition;
 				isMoving = false;
-				
-				dungeonMaster.DoneMove();
 			}
 			else
 			{

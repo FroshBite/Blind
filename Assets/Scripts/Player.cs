@@ -24,8 +24,6 @@ public class Player : MonoBehaviour {
 			{
 				transform.position = targetPosition;
 				isMoving = false;
-
-				dungeonMaster.DoneMove();
 				dungeonMaster.playerTurn = false;
 			}
 			else

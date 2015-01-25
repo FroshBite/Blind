@@ -21,6 +21,9 @@ public class PlayerStats : MonoBehaviour {
 	public static int currentMP=100;
 	public static float dmgMult=0;
 
+	public static int level=1;
+
+
 	public GameObject enemyObject;
 	Enemy enemy;
 

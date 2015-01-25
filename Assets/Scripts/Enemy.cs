@@ -53,6 +53,7 @@ public class Enemy : MonoBehaviour {
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
+			exitBattle ();
 
 			//Level up stuff starts here :o
 			Debug.Log ("LEVEL UP:");
@@ -68,6 +69,21 @@ public class Enemy : MonoBehaviour {
 	//Rolls the player's stat gains after a level up.
 	public int rollLevel(){
 		return Random.Range (0,7);
+	}
+
+	//General battle exit function, use this at the end of every battle
+	//Still has to exit scene
+	public void exitBattle(){
+		//Level up stuff starts here :o
+		Debug.Log ("LEVEL UP:");
+		PlayerStats.atk+=rollLevel ();
+		PlayerStats.hp+=rollLevel ();
+		PlayerStats.DiceSize+=1;
+
+		//Reset stats to default values
+		PlayerStats.dmgMult=0;
+		PlayerStats.currentHP = PlayerStats.hp;
+		PlayerStats.currentMP = PlayerStats.mp;
 	}
 	
 }

@@ -53,8 +53,7 @@ public class Enemy : MonoBehaviour {
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
-			exitBattle ();
-
+		
 		}
 		else if(isAlive) {
 			hitsound.Play();
@@ -74,7 +73,7 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.atk+=rollLevel ();
 		PlayerStats.hp+=rollLevel ();
 		PlayerStats.DiceSize+=1;
-
+		
 		//Reset stats to default values
 		PlayerStats.dmgMult=0;
 		PlayerStats.currentHP = PlayerStats.hp;

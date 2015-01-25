@@ -9,6 +9,7 @@ public class EnemyOverworld : MonoBehaviour {
 	public int[] currentPosition = new int[2];
 
 	private DungeonMaster dungeonMaster;
+	public string enemyName;
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +24,6 @@ public class EnemyOverworld : MonoBehaviour {
 			{
 				transform.position = targetPosition;
 				isMoving = false;
-				
-				dungeonMaster.DoneMove();
 			}
 			else
 			{

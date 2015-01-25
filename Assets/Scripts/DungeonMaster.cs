@@ -15,6 +15,7 @@ public class DungeonMaster : MonoBehaviour {
 
 	private bool drawGizmos = false;
 	public bool playerTurn = true;
+	private bool inBattle = false;
 
 	// Use this for initialization
 	void Start () {
@@ -67,6 +68,20 @@ public class DungeonMaster : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (!inBattle){
+			for (int i = 0; i < enemies.Length; i++){
+				if((enemies[i].currentPosition[0] == player.currentPosition[0]) &&
+				   (enemies[i].currentPosition[1] == player.currentPosition[1])){
+					PlayerStats.enemyName=enemies[i].enemyName;
+					Destroy (enemies[i].gameObject);
+					enemyDeath(i);
+					Application.LoadLevelAdditive(1);
+					inBattle = true;
+					playerTurn = true;
+				}
+			}
+		}
+
 		if (playerTurn && !player.isMoving){
 
 			if(Input.GetKeyDown(KeyCode.W))
@@ -138,12 +153,15 @@ public class DungeonMaster : MonoBehaviour {
 		return true;
 	}
 
-	public void DoneMove(){
-		for (int i = 0; i < enemies.Length; i++){
-			if(enemies[i].currentPosition == player.currentPosition){
-				Application.LoadLevelAdditive(1);
-				playerTurn = true;
-			}
+	void enemyDeath(int i){
+		EnemyOverworld[] tempArray=new EnemyOverworld[enemies.Length-1];
+		for (int a = 0; a<i; a++) {
+			tempArray[a]=enemies[a];
 		}
+		for(int b=i+1;b<enemies.Length;b++){
+			tempArray[b-1]=enemies[b];
+		}
+		enemies = tempArray;
+
 	}
 }

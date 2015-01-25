@@ -9,6 +9,7 @@ public class EnemyOverworld : MonoBehaviour {
 	public int[] currentPosition = new int[2];
 
 	private DungeonMaster dungeonMaster;
+	public string enemyName;
 
 	// Use this for initialization
 	void Start () {

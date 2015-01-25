@@ -63,6 +63,9 @@ public class DungeonMaster : MonoBehaviour {
 			for (int i = 0; i < enemies.Length; i++){
 				if((enemies[i].currentPosition[0] == player.currentPosition[0]) &&
 				   (enemies[i].currentPosition[1] == player.currentPosition[1])){
+					PlayerStats.enemyName=enemies[i].enemyName;
+					Destroy (enemies[i].gameObject);
+					enemyDeath(i);
 					Application.LoadLevelAdditive(1);
 					inBattle = true;
 					playerTurn = true;
@@ -139,5 +142,17 @@ public class DungeonMaster : MonoBehaviour {
 				return false;
 		}
 		return true;
+	}
+
+	void enemyDeath(int i){
+		EnemyOverworld[] tempArray=new EnemyOverworld[enemies.Length-1];
+		for (int a = 0; a<i; a++) {
+			tempArray[a]=enemies[a];
+		}
+		for(int b=i+1;b<enemies.Length;b++){
+			tempArray[b-1]=enemies[b];
+		}
+		enemies = tempArray;
+
 	}
 }

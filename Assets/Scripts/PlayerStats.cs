@@ -23,6 +23,8 @@ public class PlayerStats : MonoBehaviour {
 
 	public static int level=1;
 
+	public static string enemyName = "Gorilla";
+
 
 	public GameObject enemyObject;
 	Enemy enemy;

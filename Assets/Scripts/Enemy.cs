@@ -49,14 +49,13 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-	public void patchworkHitFlash(){
-		this.renderer.material.color = Color.white;
-	}
+	//public void patchworkHitFlash(){
+	//	renderer.material.color = Color.white;
+	//}
 
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
-			this.renderer.enabled = false;
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
@@ -64,8 +63,8 @@ public class Enemy : MonoBehaviour {
 		}
 		else if(isAlive) {
 			hitsound.Play();
-			this.renderer.material.color = Color.red;
-			Invoke ("patchworkHitFlash", 0.1f);
+			//renderer.material.color = Color.red;
+			//Invoke ("patchworkHitFlash", 0.1f);
 		}
 	}
 
@@ -75,7 +74,6 @@ public class Enemy : MonoBehaviour {
 	}
 
 	//General battle exit function, use this at the end of every battle
-	//Still has to exit scene
 	public void exitBattle(){
 		//Level up stuff starts here :o
 		Debug.Log ("LEVEL UP:");
@@ -87,6 +85,9 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.dmgMult=0;
 		PlayerStats.currentHP = PlayerStats.hp;
 		PlayerStats.currentMP = PlayerStats.mp;
+
+		//Exit Scene
+		Application.Quit ();
 	}
 }
 

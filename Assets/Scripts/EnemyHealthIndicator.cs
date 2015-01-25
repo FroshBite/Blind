@@ -4,20 +4,35 @@ using System.Collections;
 
 public class EnemyHealthIndicator : MonoBehaviour {
 
-	public GameObject playerObject;
-	PlayerStats player;
+	public GameObject enemyObject;
+	Enemy enemy;
 	
 	Text txt;
 
 	// Use this for initialization
 	void Start () {
-		player = playerObject.GetComponent<PlayerStats>();
+		enemy = enemyObject.GetComponent<Enemy>();
 		txt = gameObject.GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		txt.text = "OTHER TEST";
-	
+
+		if (enemy.currentHP == enemy.hp) {
+			txt.text = "This mate looks tough!";
+		} else if (enemy.currentHP > enemy.hp * 0.9f) {
+			txt.text = "Just grazed.";
+		} else if (enemy.currentHP > enemy.hp * 0.75f) {
+			txt.text = "This mate ain't so strong!";
+		} else if (enemy.currentHP > enemy.hp * 0.5f) {
+			txt.text = "This mate's looking pretty beat.";
+		} else if (enemy.currentHP > enemy.hp * 0.25f) {
+			txt.text = "Victory is at hand!";
+		} else if (enemy.currentHP > enemy.hp * 0.1f) {
+			txt.text = "A sneeze would kill this mate.";
+		} else {
+			txt.text = "This mate is dead!";
+		}
 	}
+
 }

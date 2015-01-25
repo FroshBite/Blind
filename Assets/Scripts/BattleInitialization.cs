@@ -6,7 +6,7 @@ public class BattleInitialization : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject obj = (GameObject)Resources.Load("Slime");
+		GameObject obj = (GameObject)Resources.Load(PlayerStats.enemyName);
 		GameObject go;
 		go=Instantiate(obj,new Vector3(0,0,0),Quaternion.identity) as GameObject; 
 		go.transform.parent=GameObject.Find("Enemy").transform;

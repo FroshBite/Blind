@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400040}
+  - 114: {fileID: 11426126}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Untagged
@@ -56,8 +57,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e561e46ff90e9642a5776f2190175b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: .25
+  currentPosition: 0000000000000000
+  enemyName: 
+--- !u!114 &11426126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e4597f411cae14a8255435d07d9f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   hp: 15
-  atk: 10
+  diceAtk: 10
   def: 5
   currentHP: 15
 --- !u!212 &21200000

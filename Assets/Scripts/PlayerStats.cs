@@ -31,7 +31,7 @@ public class PlayerStats : MonoBehaviour {
 	public AudioSource[] sounds; // sound array
 	public AudioSource hitSound;
 	public AudioSource deathSound;
-	public AudioSource healSound;
+	public AudioSource healSound; 
 	
 	// Use this for initialization
 	void Start () {
@@ -45,7 +45,6 @@ public class PlayerStats : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		if (!enemy.isAlive) {
 			isVictorious = true;
 		}
@@ -65,7 +64,7 @@ public class PlayerStats : MonoBehaviour {
 	}
 
 	public void Attack(){
-		if (!isWaiting && isAlive && !isPressed) {
+		if (!isWaiting && isAlive && !isPressed && enemy.isAlive) {
 			isPressed = true;
 			Roll ();
 			int damage = damageCount;
@@ -88,13 +87,20 @@ public class PlayerStats : MonoBehaviour {
 				Debug.Log ("ESCAPE SUCCESS");
 				Debug.Log ("Application.LoadLevel (0)");
 			}
-			else if(isAlive){
+			else if(isAlive && enemy.isAlive){
 				Debug.Log ("COULDN'T ESCAPE");
 				isWaiting = true;
 				enemy.isWaiting = false;
 			}
 
 		}
+	}
+
+	public IEnumerator HitFlash(float flashTime){
+		hitSound.Play ();
+		renderer.material.color = Color.red;
+		yield return new WaitForSeconds(flashTime);
+		renderer.material.color = Color.white;
 	}
 
 
@@ -106,8 +112,8 @@ public class PlayerStats : MonoBehaviour {
 			Debug.Log ("GAME OVER");
 			Debug.Log ("ur bad");
 		}
-		else if(isAlive){
-			hitSound.Play ();
+		else if(isAlive && enemy.isAlive){
+			StartCoroutine(HitFlash (0.1f));
 		}
 	}
 

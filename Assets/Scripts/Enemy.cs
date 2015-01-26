@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour {
 	PlayerStats player;
 
 
+
 	// Use this for initialization
 	void Start () {
 		player = playerObject.GetComponent<PlayerStats>();
@@ -57,18 +58,21 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void Attack(){
-
+		if (isAlive){
 			Roll ();
 			int damage = damageCount;
 			player.GetHit (damage);
 			Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
 			isWaiting = true;
 			player.isWaiting = false;
-
+		}
 	}
 
-	//public void patchworkHitFlash(){
-	//	renderer.material.color = Color.white;
+	//IEnumerator HitFlash(float flashTime){
+	//hitSound.Play();
+	//renderer.material.color = Color.red;
+	//yield return new WaitForSeconds(flashTime);
+	//renderer.material.color = Color.white;
 	//}
 
 	public void GetHit(int damage){
@@ -83,8 +87,7 @@ public class Enemy : MonoBehaviour {
 		}
 		else if(isAlive) {
 			hitSound.Play();
-			//renderer.material.color = Color.red;
-			//Invoke ("patchworkHitFlash", 0.1f);
+			//HitFlash();
 		}
 	}
 
@@ -106,7 +109,7 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.currentMP = PlayerStats.mp;
 
 		//Exit Scene
-		Application.LoadLevel (0);
+		// Application.LoadLevel (0);
 	}
 }
 

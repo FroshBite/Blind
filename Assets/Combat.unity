@@ -236,8 +236,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
-  atk: 10
+  diceAtk: 10
   def: 5
+  damageCount: 0
   currentHP: 15
   sounds: []
   hitSound: {fileID: 0}

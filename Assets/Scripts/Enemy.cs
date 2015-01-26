@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-	public int hp=15;
+	public int hp=30;
 	public int diceAtk=10;
-	public int def=5;
+	public int diceDef=5;
 	public int damageCount;
 	
-	public int currentHP=15;
+	public int currentHP=30;
 
 	public static int DieCount = 1;
 
@@ -33,12 +33,12 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isWaiting && isAlive) {
-			Invoke ("patchworkPlayerPressDelay", 1);
-			Invoke("Attack", 1);
-			isWaiting = true;
-			player.isWaiting = false;
-		}
+	}
+
+	public IEnumerator Turn(int waitTime){
+		patchworkPlayerPressDelay ();
+		yield return new WaitForSeconds(waitTime);
+		Attack ();
 	}
 
 	public void patchworkPlayerPressDelay(){
@@ -57,9 +57,13 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void Attack(){
-		int damage = diceAtk;
-		player.GetHit (damage);
-		Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
+
+			Roll ();
+			int damage = damageCount;
+			player.GetHit (damage);
+			Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
+			isWaiting = true;
+			player.isWaiting = false;
 
 	}
 

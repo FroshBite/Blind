@@ -5,15 +5,15 @@ public class PlayerStats : MonoBehaviour {
 
 	public bool isAlive = true;
 	public bool isWaiting = false;
-	public bool isVictorious = false;
-	public bool isPressed = false;
+	public bool isVictorious = false; // to be used to see if you won or you escaped
+	public bool isPressed = false; // anti-spam bool
 
-	public static int DieCount = 1;
+	public static int DieCount = 1; // modify for skills and level-ups
 
 	public static int hp=100;
 	public static int mp=100;
-	public static int diceAtk=10;
-	public static int diceDef=5;
+	public static int diceAtk=10; // stats are all represented by dice size
+	public static int diceDef=5; // DAMAGE REDUCTION TO BE IMPLEMENTED LATER
 	public int damageCount;
 	
 	public static int currentHP=100;
@@ -28,7 +28,7 @@ public class PlayerStats : MonoBehaviour {
 	public GameObject enemyObject;
 	Enemy enemy;
 
-	public AudioSource[] sounds;
+	public AudioSource[] sounds; // sound array
 	public AudioSource hitSound;
 	public AudioSource deathSound;
 	public AudioSource healSound;
@@ -74,6 +74,7 @@ public class PlayerStats : MonoBehaviour {
 			enemy.GetHit (damage);
 			isWaiting = true;
 			enemy.isWaiting = false;
+			StartCoroutine(enemy.Turn (1)); // call enemy turn on a 1-second delay
 		}
 	}
 

@@ -30,8 +30,11 @@ public class EnemyHealthIndicator : MonoBehaviour {
 			txt.text = "Victory is at hand!";
 		} else if (enemy.currentHP > enemy.hp * 0.1f) {
 			txt.text = "A sneeze would kill this mate.";
-		} else {
+		} else if (enemy.currentHP > 0){
 			txt.text = "R.I.P. in Peace.";
+		}
+		else if(!enemy.isAlive){
+			txt.text = "GAME OVER";
 		}
 	}
 

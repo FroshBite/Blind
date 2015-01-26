@@ -59,8 +59,6 @@ public class Enemy : MonoBehaviour {
 			deathsound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
-
-			exitBattle ();
 		
 		}
 		else if(isAlive) {
@@ -89,7 +87,7 @@ public class Enemy : MonoBehaviour {
 		PlayerStats.currentMP = PlayerStats.mp;
 
 		//Exit Scene
-		Application.LoadLevel (0);
+		Application.Quit ();
 	}
 }
 

@@ -88,7 +88,7 @@ public class DungeonMaster : MonoBehaviour {
 					PlayerStats.enemyName=enemies[i].enemyName;
 					Destroy (enemies[i].gameObject);
 					enemyDeath(i);
-					Application.LoadLevel(1);
+					Application.LoadLevelAdditive(1);
 					inBattle = true;
 					playerTurn = true;
 				}

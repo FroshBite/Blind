@@ -100,7 +100,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 7b30c5d4ad619dc4b872d70008f2e8f0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -176,15 +176,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
-  atk: 10
-  def: 5
+  diceAtk: 10
+  diceDef: 5
+  damageCount: 0
   currentHP: 15
   sounds: []
-  hitsound: {fileID: 0}
-  deathsound: {fileID: 0}
+  hitSound: {fileID: 0}
+  deathSound: {fileID: 0}
   isAlive: 1
   isWaiting: 1
   playerObject: {fileID: 173744, guid: 8d60b2fd7fd852d4aad324bde079dbcb, type: 2}
+  childPrefab: {fileID: 0}
 --- !u!114 &11431040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,10 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e4597f411cae14a8255435d07d9f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 15
-  atk: 10
-  def: 5
-  currentHP: 15
+  hp: 300
+  diceAtk: 10
+  diceDef: 5
+  currentHP: 300
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

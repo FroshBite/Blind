@@ -21,19 +21,43 @@ public class Enemy : MonoBehaviour {
 	public GameObject playerObject;
 	PlayerStats player;
 
+	public GameObject childPrefab;
+	EnemyStats enemy;
 
 
 	// Use this for initialization
 	void Start () {
 		player = playerObject.GetComponent<PlayerStats>();
-		sounds = GetComponents<AudioSource> ();
-		hitSound = sounds [0];
-		deathSound = sounds[1];
+
+		StartCoroutine (Morph ());
 	}
 
 	
 	// Update is called once per frame
 	void Update () {
+
+
+	}
+
+	public IEnumerator Morph (){ // need to wait for instantiation before getting all components of the enemy
+		yield return new WaitForSeconds (0.05f); // short enough that players don't notice
+
+		// attach by finding instantiated gameobject name
+		childPrefab = GameObject.Find(string.Format ("{0}(Clone)",PlayerStats.enemyName));
+		
+		enemy = childPrefab.GetComponent<EnemyStats>();
+		childPrefab.renderer.sortingOrder = 1; // or else sprite gets rendered behind background
+
+		// taking in prefab-specific stats
+		hp = enemy.hp;
+		diceAtk = enemy.diceAtk;
+		diceDef = enemy.diceDef;
+		currentHP = enemy.currentHP;
+
+		//taking in prefab-specific sounds
+		sounds = childPrefab.GetComponents<AudioSource> ();
+		hitSound = sounds [0];
+		deathSound = sounds[1];
 	}
 
 	public IEnumerator Turn(int waitTime){
@@ -68,26 +92,26 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	//IEnumerator HitFlash(float flashTime){
-	//hitSound.Play();
-	//renderer.material.color = Color.red;
-	//yield return new WaitForSeconds(flashTime);
-	//renderer.material.color = Color.white;
-	//}
+	IEnumerator HitFlash(float flashTime){
+		hitSound.Play();
+		childPrefab.renderer.material.color = Color.red;
+		yield return new WaitForSeconds(flashTime);
+		childPrefab.renderer.material.color = Color.white;
+	}
 
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
 			deathSound.Play();
 			isAlive= false;
+			childPrefab.renderer.enabled = false;
 			Debug.Log ("VICTORY");
 
 			exitBattle ();
 		
 		}
 		else if(isAlive) {
-			hitSound.Play();
-			//HitFlash();
+			StartCoroutine(HitFlash(0.1f));
 		}
 	}
 

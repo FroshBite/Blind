@@ -9,12 +9,11 @@ public class PlayerStats : MonoBehaviour {
 	public bool isPressed = false;
 
 	public static int DieCount = 1;
-	public static int DiceSize = 6;
 
 	public static int hp=100;
 	public static int mp=100;
-	public static int atk=10;
-	public static int def=5;
+	public static int diceAtk=10;
+	public static int diceDef=5;
 	public int damageCount;
 	
 	public static int currentHP=100;
@@ -30,14 +29,16 @@ public class PlayerStats : MonoBehaviour {
 	Enemy enemy;
 
 	public AudioSource[] sounds;
-	public AudioSource hitsound;
-	public AudioSource deathsound;
+	public AudioSource hitSound;
+	public AudioSource deathSound;
+	public AudioSource healSound;
 	
 	// Use this for initialization
 	void Start () {
 		sounds = GetComponents<AudioSource> ();
-		hitsound = sounds [0];
-		deathsound = sounds[1];
+		hitSound = sounds [0];
+		deathSound = sounds[1];
+		healSound = sounds [2];
 
 		enemy = enemyObject.GetComponent<Enemy>();
 	}
@@ -56,7 +57,7 @@ public class PlayerStats : MonoBehaviour {
 		if(!isWaiting){
 			damageCount = 0;
 			for (int diceNumber = 1; diceNumber <= DieCount; diceNumber++) {
-				int roll = Random.Range (1, DiceSize + 1);
+				int roll = Random.Range (1, diceAtk + 1);
 				damageCount += roll;
 			}
 		}
@@ -82,7 +83,7 @@ public class PlayerStats : MonoBehaviour {
 			Roll ();
 			int escapism = damageCount;
 			Debug.Log (string.Format ("ESCAPE CHECK: {0}", damageCount));
-			if (escapism > enemy.atk){
+			if (escapism > enemy.diceAtk){
 				Debug.Log ("ESCAPE SUCCESS");
 				Debug.Log ("Application.LoadLevel (0)");
 			}
@@ -99,13 +100,13 @@ public class PlayerStats : MonoBehaviour {
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
-			deathsound.Play();
+			deathSound.Play ();
 			isAlive = false;
 			Debug.Log ("GAME OVER");
 			Debug.Log ("ur bad");
 		}
 		else if(isAlive){
-			hitsound.Play();
+			hitSound.Play ();
 		}
 	}
 
@@ -113,6 +114,7 @@ public class PlayerStats : MonoBehaviour {
 	public void LesserHeal(){
 		if (!isWaiting && mp>=10) {
 			mp-=10;
+			healSound.Play ();
 			int basePower = Random.Range(1,51);
 			if (currentHP + basePower >= hp) {
 				currentHP=hp;
@@ -136,7 +138,7 @@ public class PlayerStats : MonoBehaviour {
 	public void Starfall(){
 		if (!isWaiting && mp >= 5) {
 			int selection = Random.Range (1,5);
-			int basePower = Random.Range (1,DiceSize);
+			int basePower = Random.Range (1,diceAtk);
 			if(selection==1){//Deal Damage
 				int dmg = (int)basePower*basePower/3;
 				Debug.Log (dmg);

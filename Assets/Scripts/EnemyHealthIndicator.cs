@@ -19,11 +19,11 @@ public class EnemyHealthIndicator : MonoBehaviour {
 	void Update () {
 
 		if (enemy.currentHP == enemy.hp) {
-			txt.text = "This mate looks tough!";
+			txt.text = "Looks tough!";
 		} else if (enemy.currentHP > enemy.hp * 0.9f) {
 			txt.text = "Just grazed.";
 		} else if (enemy.currentHP > enemy.hp * 0.75f) {
-			txt.text = "This mate ain't so strong!";
+			txt.text = "It doesn't look so strong!";
 		} else if (enemy.currentHP > enemy.hp * 0.5f) {
 			txt.text = "This mate's looking pretty beat.";
 		} else if (enemy.currentHP > enemy.hp * 0.25f) {
@@ -31,7 +31,7 @@ public class EnemyHealthIndicator : MonoBehaviour {
 		} else if (enemy.currentHP > enemy.hp * 0.1f) {
 			txt.text = "A sneeze would kill this mate.";
 		} else {
-			txt.text = "This mate is dead!";
+			txt.text = "R.I.P. in Peace.";
 		}
 	}
 

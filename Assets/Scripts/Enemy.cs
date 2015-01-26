@@ -3,14 +3,17 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 	public int hp=15;
-	public int atk=10;
+	public int diceAtk=10;
 	public int def=5;
+	public int damageCount;
 	
 	public int currentHP=15;
 
+	public static int DieCount = 1;
+
 	public AudioSource[] sounds;
-	public AudioSource hitsound;
-	public AudioSource deathsound;
+	public AudioSource hitSound;
+	public AudioSource deathSound;
 
 	public bool isAlive = true;
 	public bool isWaiting = true;
@@ -23,8 +26,8 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		player = playerObject.GetComponent<PlayerStats>();
 		sounds = GetComponents<AudioSource> ();
-		hitsound = sounds [0];
-		deathsound = sounds[1];
+		hitSound = sounds [0];
+		deathSound = sounds[1];
 	}
 
 	
@@ -42,8 +45,19 @@ public class Enemy : MonoBehaviour {
 		player.isPressed = false;
 	}
 
+	public void Roll(){
+		if(!isWaiting){
+			damageCount = 0;
+			for (int diceNumber = 1; diceNumber <= DieCount; diceNumber++) {
+				int roll = Random.Range (1, diceAtk + 1);
+				damageCount += roll;
+			}
+		}
+		
+	}
+
 	public void Attack(){
-		int damage = atk;
+		int damage = diceAtk;
 		player.GetHit (damage);
 		Debug.Log (string.Format ("GOT HIT FOR {0}", damage));
 
@@ -56,7 +70,7 @@ public class Enemy : MonoBehaviour {
 	public void GetHit(int damage){
 		currentHP -= damage;
 		if (currentHP <= 0 && isAlive) {
-			deathsound.Play();
+			deathSound.Play();
 			isAlive= false;
 			Debug.Log ("VICTORY");
 
@@ -64,7 +78,7 @@ public class Enemy : MonoBehaviour {
 		
 		}
 		else if(isAlive) {
-			hitsound.Play();
+			hitSound.Play();
 			//renderer.material.color = Color.red;
 			//Invoke ("patchworkHitFlash", 0.1f);
 		}
@@ -79,9 +93,8 @@ public class Enemy : MonoBehaviour {
 	public void exitBattle(){
 		//Level up stuff starts here :o
 		Debug.Log ("LEVEL UP:");
-		PlayerStats.atk+=rollLevel ();
+		PlayerStats.diceAtk+=rollLevel ();
 		PlayerStats.hp+=rollLevel ();
-		PlayerStats.DiceSize+=1;
 		
 		//Reset stats to default values
 		PlayerStats.dmgMult=0;

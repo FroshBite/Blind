@@ -2,17 +2,18 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	
-	public float MoveSpeed = 0.25f;
 
-	public int[] currentPosition = new int[2];
-	
-	public bool isMoving = false;
-	private Vector3 targetPosition;
+	public bool isMoving;
+
+	private int[] currentPosition = new int[2];
 	private DungeonMaster dungeonMaster;
+	private Vector3 targetPosition;
+	private float moveSpeed;
 
 	// Use this for initialization
 	void Start () {
+		isMoving = false;
+		moveSpeed = 0.25f;
 	}
 	
 	// Update is called once per frame
@@ -28,9 +29,13 @@ public class Player : MonoBehaviour {
 			}
 			else
 			{
-				transform.position = Vector3.Lerp(transform.position, targetPosition, MoveSpeed);
+				transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed);
 			}
 		}
+	}
+
+	public int[] getPosition(){
+		return currentPosition;
 	}
 
 	public void StartGame(DungeonMaster dm, int xPos, int yPos, Vector3 startingPosition) {

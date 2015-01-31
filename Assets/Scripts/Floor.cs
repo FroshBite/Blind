@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Floor : MonoBehaviour {
 
-	private Sprite[] floorSprites;
+	private Sprite[] floorSprites = new Sprite[103];
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +23,5 @@ public class Floor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

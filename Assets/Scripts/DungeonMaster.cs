@@ -2,35 +2,34 @@
 using System.Collections;
 
 public class DungeonMaster : MonoBehaviour {
-
-	public Player player;
+	
 	private EnemyOverworld[] enemies;
 	private Obstacle[] obstacles;
 	private GameObject floor;
-
-	private int Columns = 100;
-	private int Rows = 100;
-
-	public float NodeSpacing = 0.25f;
+	public Player player;
+	
 	private Vector3[,] gameNodes;
+	private float NodeSpacing;
+	private int Columns;
+	private int Rows;
 
-	private bool drawGizmos = false;
-	public bool playerTurn = true;
-	private bool inBattle = false;
+	public bool playerTurn;
+	private bool inBattle;
 
 	// Use this for initialization
 	void Start () {
 		floor = (GameObject)Resources.Load("Floor");
 
+		Columns = 100;
+		Rows = 100;
 		gameNodes = new Vector3[Rows, Columns];
+
+		playerTurn = true;
+		inBattle = false;
 
 		for(int y = 0; y < Columns; y++){
 			for( int x = 0; x < Rows; x++ ){
-
-				float xPos = (x * 1.0f) * NodeSpacing;
-				float yPos = (y * 1.0f) * NodeSpacing;
-
-				gameNodes[x, y] = new Vector3(xPos, yPos, transform.position.z);
+				gameNodes[x, y] = new Vector3(x, y, transform.position.z);
 			}
 		}
 
@@ -40,40 +39,25 @@ public class DungeonMaster : MonoBehaviour {
 		player.StartGame(this, 50, 50, gameNodes[50,50]);
 
 		for(int i=0; i<enemies.Length; i++){
-			enemies[i].StartGame(this, 51, 50+i, gameNodes[51, 50+i]);
+			enemies[i].StartGame(51, 50+i, gameNodes[51, 50+i]);
 		}
 
 		for(int i=0; i<obstacles.Length; i++){
-			int xPos = obstacles[i].position[0];
-			int yPos = obstacles[i].position[1];
+			int xPos = obstacles[i].getPosition()[0];
+			int yPos = obstacles[i].getPosition()[1];
 
-			obstacles[i].StartGame(gameNodes[xPos, yPos],
-			                       checkFloor(xPos + 1, yPos),
+			obstacles[i].StartGame(checkFloor(xPos + 1, yPos),
 			                       checkFloor(xPos, yPos - 1),
 			                       checkFloor(xPos + 1, yPos - 1));
 		}
+
+
 
 		for(int y = 0; y < Columns; y++){
 			for( int x = 0; x < Rows; x++ ){
 				if(checkFloor(x, y)){
 					Vector3 Location = new Vector3(gameNodes[x, y].x, gameNodes[x, y].y, 10);
-
 					Instantiate(floor, Location, Quaternion.identity);
-				}
-			}
-		}
-
-		drawGizmos = true;
-	}
-
-	void OnDrawGizmos()
-	{
-		if(drawGizmos)
-		{
-			for(int y = 0; y < Columns; y++){
-				for( int x = 0; x < Rows; x++ ){
-					Gizmos.color = Color.white;
-					Gizmos.DrawWireSphere(gameNodes[x, y], 0.25f);
 				}
 			}
 		}
@@ -83,9 +67,9 @@ public class DungeonMaster : MonoBehaviour {
 	void Update () {
 		if (!inBattle){
 			for (int i = 0; i < enemies.Length; i++){
-				if((enemies[i].currentPosition[0] == player.currentPosition[0]) &&
-				   (enemies[i].currentPosition[1] == player.currentPosition[1])){
-					PlayerStats.enemyName=enemies[i].enemyName;
+				if((enemies[i].getPosition()[0] == player.getPosition()[0]) &&
+				   (enemies[i].getPosition()[1] == player.getPosition()[1])){
+					PlayerStats.enemyName = enemies[i].enemyName;
 					Destroy (enemies[i].gameObject);
 					enemyDeath(i);
 					Application.LoadLevel(1);
@@ -98,44 +82,44 @@ public class DungeonMaster : MonoBehaviour {
 		if (playerTurn && !player.isMoving){
 
 			if(Input.GetKeyDown(KeyCode.W))
-				movePlayer(player.currentPosition[0], player.currentPosition[1]+1);
+				movePlayer(player.getPosition()[0], player.getPosition()[1]+1);
 
 			else if(Input.GetKeyDown(KeyCode.A))
-				movePlayer(player.currentPosition[0]-1, player.currentPosition[1]);
+				movePlayer(player.getPosition()[0]-1, player.getPosition()[1]);
 
 			else if(Input.GetKeyDown(KeyCode.S))
-				movePlayer(player.currentPosition[0], player.currentPosition[1]-1);
+				movePlayer(player.getPosition()[0], player.getPosition()[1]-1);
 
 			else if(Input.GetKeyDown(KeyCode.D))
-				movePlayer(player.currentPosition[0]+1, player.currentPosition[1]);
+				movePlayer(player.getPosition()[0]+1, player.getPosition()[1]);
 		}
 
 		else if (!player.isMoving){
 			for(int i=0; i<enemies.Length; i++){
 				int direction;
 
-				if(enemies[i].currentPosition[1] == player.currentPosition[1]-1)
+				if(enemies[i].getPosition()[1] == player.getPosition()[1]-1)
 					direction = 0;
-				else if(enemies[i].currentPosition[0] == player.currentPosition[0]+1)
+				else if(enemies[i].getPosition()[0] == player.getPosition()[0]+1)
 					direction = 1;
-				else if(enemies[i].currentPosition[1] == player.currentPosition[1]+1)
+				else if(enemies[i].getPosition()[1] == player.getPosition()[1]+1)
 					direction = 2;
-				else if(enemies[i].currentPosition[0] == player.currentPosition[0]-1)
+				else if(enemies[i].getPosition()[0] == player.getPosition()[0]-1)
 					direction = 3;
-				else if((enemies[i].currentPosition[0] == player.currentPosition[0]) && 
-				        (enemies[i].currentPosition[1] == player.currentPosition[1]))
+				else if((enemies[i].getPosition()[0] == player.getPosition()[0]) && 
+				        (enemies[i].getPosition()[1] == player.getPosition()[1]))
 					direction = 4;
 				else
 					direction = Random.Range(0,4);
 
 				if(direction == 0)
-					moveEnemy(enemies[i], enemies[i].currentPosition[0], enemies[i].currentPosition[1]+1);
+					moveEnemy(enemies[i], enemies[i].getPosition()[0], enemies[i].getPosition()[1]+1);
 				else if(direction == 1)
-					moveEnemy(enemies[i], enemies[i].currentPosition[0]-1, enemies[i].currentPosition[1]);
+					moveEnemy(enemies[i], enemies[i].getPosition()[0]-1, enemies[i].getPosition()[1]);
 				else if(direction == 2)
-					moveEnemy(enemies[i], enemies[i].currentPosition[0], enemies[i].currentPosition[1]-1);
+					moveEnemy(enemies[i], enemies[i].getPosition()[0], enemies[i].getPosition()[1]-1);
 				else if(direction == 3)
-					moveEnemy(enemies[i], enemies[i].currentPosition[0]+1, enemies[i].currentPosition[1]);
+					moveEnemy(enemies[i], enemies[i].getPosition()[0]+1, enemies[i].getPosition()[1]);
 			}
 			playerTurn = true;
 		}
@@ -148,8 +132,8 @@ public class DungeonMaster : MonoBehaviour {
 
 	void moveEnemy(EnemyOverworld enemy, int xPos, int yPos){
 		for (int i = 0; i < enemies.Length; i++){
-			if((enemies[i].currentPosition[0] == xPos) && 
-			   (enemies[i].currentPosition[1] == yPos))
+			if((enemies[i].getPosition()[0] == xPos) && 
+			   (enemies[i].getPosition()[1] == yPos))
 				return;
 		}
 
@@ -158,9 +142,9 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	bool checkFloor(int xPos, int yPos){
-		 for (int i = 0; i < obstacles.Length; i++) {
-			if((obstacles[i].position[0] == xPos) && 
-			   (obstacles[i].position[1] == yPos))
+		for (int i = 0; i < obstacles.Length; i++) {
+			if((obstacles[i].getPosition()[0] == xPos) && 
+			   (obstacles[i].getPosition()[1] == yPos))
 				return false;
 		}
 		return true;

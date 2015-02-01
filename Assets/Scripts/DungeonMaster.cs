@@ -7,7 +7,9 @@ public class DungeonMaster : MonoBehaviour {
 	private Obstacle[] obstacles;
 	private GameObject floor;
 	public Player player;
-	
+
+	private Sprite[] tileSprites = new Sprite[103];
+
 	private Vector3[,] gameNodes;
 	private float NodeSpacing;
 	private int Columns;
@@ -18,7 +20,10 @@ public class DungeonMaster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		tileSprites = Resources.LoadAll<Sprite>("Tiles");
 		floor = (GameObject)Resources.Load("Floor");
+
+		Sprite[] wallSprites = {tileSprites [0], tileSprites [1], tileSprites [13], tileSprites [33], tileSprites [72]};
 
 		Columns = 100;
 		Rows = 100;
@@ -43,15 +48,14 @@ public class DungeonMaster : MonoBehaviour {
 		}
 
 		for(int i=0; i<obstacles.Length; i++){
-			int xPos = obstacles[i].getPosition()[0];
-			int yPos = obstacles[i].getPosition()[1];
+			int xPos = obstacles[i].position[0];
+			int yPos = obstacles[i].position[1];
 
-			obstacles[i].StartGame(checkFloor(xPos + 1, yPos),
+			obstacles[i].StartGame(wallSprites,
+			                       checkFloor(xPos + 1, yPos),
 			                       checkFloor(xPos, yPos - 1),
 			                       checkFloor(xPos + 1, yPos - 1));
 		}
-
-
 
 		for(int y = 0; y < Columns; y++){
 			for( int x = 0; x < Rows; x++ ){
@@ -143,8 +147,8 @@ public class DungeonMaster : MonoBehaviour {
 
 	bool checkFloor(int xPos, int yPos){
 		for (int i = 0; i < obstacles.Length; i++) {
-			if((obstacles[i].getPosition()[0] == xPos) && 
-			   (obstacles[i].getPosition()[1] == yPos))
+			if((obstacles[i].position[0] == xPos) && 
+			   (obstacles[i].position[1] == yPos))
 				return false;
 		}
 		return true;

@@ -127,6 +127,7 @@ public class PlayerStats : MonoBehaviour {
 
 	//Offensive skills
 	public void Starfall(){ // random roll
+		string description = "I'm going to tear this enemy apart! I think. I'll make it up as I go.";
 		if (!isWaiting && mp >= level*5) {
 			mp -= level*5;
 			int selection = Random.Range (1,2*diceAtk);
@@ -141,7 +142,7 @@ public class PlayerStats : MonoBehaviour {
 					Debug.Log (string.Format ("FLURRY STRIKE FOR {0}", dmg));
 					enemy.GetHit (dmg);
 				}
-			}else if(selection > 1){ // double strike
+			}else if(selection > 1){ // regular hit
 				for(int i =0;i<2;i++){
 					int dmg = (int)basePower;
 					Debug.Log (string.Format ("FLURRY STRIKE FOR {0}", dmg));
@@ -162,6 +163,7 @@ public class PlayerStats : MonoBehaviour {
 
 	// Defensive skills
 	public void LesserHeal(){
+		string description = "I more or less know how to patch myself with this neat trick. Doctors hate me!";
 		if (!isWaiting && mp >=level*5) {
 			isPressed = true;
 			mp-=level*5;

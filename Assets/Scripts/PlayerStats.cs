@@ -11,13 +11,13 @@ public class PlayerStats : MonoBehaviour {
 	public static int DieCount = 1; // modify for skills and level-ups
 
 	public static int hp=100;
-	public static int mp=100;
+	public static int mp=20;
 	public static int diceAtk=10; // stats are all represented by dice size
-	public static int diceDef=5; // DAMAGE REDUCTION TO BE IMPLEMENTED LATER
+	public static int diceDef=10; // DAMAGE REDUCTION TO BE IMPLEMENTED LATER
 	public int damageCount;
 	
 	public static int currentHP=100;
-	public static int currentMP=100;
+	public static int currentMP=20;
 	public static float dmgMult=0;
 
 	public static int level=1;
@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour {
 	public AudioSource hitSound;
 	public AudioSource deathSound;
 	public AudioSource healSound; 
+	public AudioSource noMana;
 	
 	// Use this for initialization
 	void Start () {
@@ -39,6 +40,7 @@ public class PlayerStats : MonoBehaviour {
 		hitSound = sounds [0];
 		deathSound = sounds[1];
 		healSound = sounds [2];
+		noMana = sounds [3];
 
 		enemy = enemyObject.GetComponent<Enemy>();
 	}
@@ -119,25 +121,24 @@ public class PlayerStats : MonoBehaviour {
 
 	//Lets put skills here :v
 	public void LesserHeal(){
-		if (!isWaiting && mp>=10) {
-			mp-=10;
+		if (!isWaiting && mp>=level*5) {
+			isPressed = true;
+			mp-=level*5;
 			healSound.Play ();
-			int basePower = Random.Range(1,51);
+			int basePower = Random.Range(1,diceDef);
 			if (currentHP + basePower >= hp) {
 				currentHP=hp;
-				Debug.Log ("I'm really feeling it!");
 			}else{
 				currentHP +=basePower;
-				if(currentHP / hp <=0.25){
-					Debug.Log ("I'm as good as dead.");
-				}else if(currentHP / hp >0.25 && currentHP / hp <= 0.8){
-					Debug.Log ("I feel a little better.");
-				}else if(currentHP / hp >0.8 && hp!=currentHP){
-					Debug.Log ("A little battered, but still good to go!");
-				}
 			}
+			Debug.Log (string.Format ("HEALED FOR {0}", basePower));
 			isWaiting = true;
 			enemy.isWaiting = false;
+			StartCoroutine(enemy.Turn (1));
+		}
+		else if (!isWaiting){
+			Debug.Log (string.Format ("NOT ENOUGH MANA. CURRENTLY HAVE {0}, NEED {1}", mp, level*5));
+			noMana.Play ();
 		}
 	}
 

@@ -34,7 +34,7 @@ public class EnemyHealthIndicator : MonoBehaviour {
 			txt.text = "R.I.P. in Peace.";
 		}
 		else if(!enemy.isAlive){
-			txt.text = "GAME OVER";
+			txt.text = "Enemy slain. Victory!";
 		}
 	}
 

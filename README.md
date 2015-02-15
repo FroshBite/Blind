@@ -23,4 +23,5 @@ An RPG in which the player character is not as omniscient as the average hero.
 
 **Overworld**
 
+* ~~**[IMPORTANT]** Fix overworld room generation~~
 * **[IMPORTANT]** Remember overworld state when changing between combat and overworld scenes, so that on combat end the overworld doesn't just completely reset 

@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour {
 
 	public bool isAlive = true;
-	public bool isWaiting = false;
+	public bool isWaiting = false; // if true, it's not my turn right now
 	public bool isVictorious = false; // to be used to see if you won or you escaped
 	public bool isPressed = false; // anti-spam bool
 
@@ -15,6 +15,10 @@ public class PlayerStats : MonoBehaviour {
 	public static int diceAtk=10; // stats are all represented by dice size
 	public static int diceDef=10; // DAMAGE REDUCTION TO BE IMPLEMENTED LATER
 	public int damageCount;
+	public int Skill_1;
+	public int Skill_2;
+	public int Skill_3;
+	public int Skill_4;
 	
 	public static int currentHP=100;
 	public static int currentMP=20;
@@ -119,9 +123,46 @@ public class PlayerStats : MonoBehaviour {
 		}
 	}
 
-	//Lets put skills here :v
+	// ******************** SKILLS ******************** //
+
+	//Offensive skills
+	public void Starfall(){ // random roll
+		if (!isWaiting && mp >= level*5) {
+			mp -= level*5;
+			int selection = Random.Range (1,2*diceAtk);
+			int basePower = Random.Range (1,diceAtk);
+			if(selection == 2*diceAtk){//Deal Damage
+				int dmg = (int)basePower*basePower/2;
+				Debug.Log (string.Format ("CRITICAL STRIKE FOR {0}", dmg));
+				enemy.GetHit (dmg);
+			}else if(selection >= diceAtk){// triple strike
+				for(int i =0;i<3;i++){
+					int dmg = (int)basePower;
+					Debug.Log (string.Format ("FLURRY STRIKE FOR {0}", dmg));
+					enemy.GetHit (dmg);
+				}
+			}else if(selection > 1){ // double strike
+				for(int i =0;i<2;i++){
+					int dmg = (int)basePower;
+					Debug.Log (string.Format ("FLURRY STRIKE FOR {0}", dmg));
+					enemy.GetHit (dmg);
+				}
+			}else if(selection == 1){
+				Debug.Log ("CRITICAL FAILURE, ATTACK MISS");
+			}
+			isWaiting = true;
+			enemy.isWaiting = false;
+			StartCoroutine(enemy.Turn (1));
+		}
+		else if (!isWaiting){
+			Debug.Log (string.Format ("NOT ENOUGH MANA. CURRENTLY HAVE {0}, NEED {1}", mp, level*5));
+			noMana.Play ();
+		}
+	}
+
+	// Defensive skills
 	public void LesserHeal(){
-		if (!isWaiting && mp>=level*5) {
+		if (!isWaiting && mp >=level*5) {
 			isPressed = true;
 			mp-=level*5;
 			healSound.Play ();
@@ -142,47 +183,11 @@ public class PlayerStats : MonoBehaviour {
 		}
 	}
 
-	//Skill does a random action
-	public void Starfall(){
-		if (!isWaiting && mp >= 5) {
-			int selection = Random.Range (1,5);
-			int basePower = Random.Range (1,diceAtk);
-			if(selection==1){//Deal Damage
-				int dmg = (int)basePower*basePower/3;
-				Debug.Log (dmg);
-				enemy.GetHit (dmg);
-			}else if(selection==2){//Heal
-				basePower*=10;
-				if (currentHP + basePower >= hp) {
-					currentHP=hp;
-					Debug.Log ("I'm really feeling it!");
-				}else{
-					currentHP +=basePower;
-					if(currentHP / hp <=0.25){
-						Debug.Log ("I'm as good as dead.");
-					}else if(currentHP / hp >0.25 && currentHP / hp <= 0.8){
-						Debug.Log ("I feel a little better.");
-					}else if(currentHP / hp >0.8 && hp!=currentHP){
-						Debug.Log ("A little battered, but still good to go!");
-					}
-				}
-			}else if(selection==3){
-				for(int i =0;i<5;i++){
-					int dmg = (int)basePower;
-					Debug.Log (dmg);
-					enemy.GetHit (dmg);
-				}
-			}else if(selection==4){
-				Debug.Log ("...Okay. I guess nothing happened :/");
-			}
 
-			isWaiting = true;
-			enemy.isWaiting = false;
-		}
-	}
-
+	// Player stat modifier skills
 	public void BlessingOfTheBasedGod(){
 		dmgMult += 0.5f;
+		Debug.Log ("ATTACK BOLSTERED");
 		Debug.Log ("Lil B hears your prayer and blesses you.");
 		isWaiting = true;
 		enemy.isWaiting = false;

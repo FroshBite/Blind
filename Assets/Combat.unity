@@ -365,7 +365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Skill 2
+  m_Text: Defensive
 --- !u!222 &241767683
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Skill 1
+  m_Text: Offensive
 --- !u!222 &291815541
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -622,7 +622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Skill 3
+  m_Text: Player Modifier
 --- !u!222 &512795194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1344,7 +1344,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Skill 4
+  m_Text: Enemy Modifier
 --- !u!222 &1090077237
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1428,7 +1428,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1127186872}
-        m_MethodName: LesserHeal
+        m_MethodName: Starfall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1602,6 +1602,10 @@ MonoBehaviour:
   isVictorious: 0
   isPressed: 0
   damageCount: 0
+  Skill_1: 0
+  Skill_2: 0
+  Skill_3: 0
+  Skill_4: 0
   enemyObject: {fileID: 169081064}
   sounds: []
   hitSound: {fileID: 0}
@@ -2723,7 +2727,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2007596306}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1127186872}
+        m_MethodName: LesserHeal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2007596306

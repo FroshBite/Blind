@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour {
 		childPrefab = GameObject.Find(string.Format ("{0}(Clone)",PlayerStats.enemyName));
 		
 		enemy = childPrefab.GetComponent<EnemyStats>();
-		childPrefab.GetComponent<Renderer>().sortingOrder = 1; // or else sprite gets rendered behind background
+		childPrefab.renderer.sortingOrder = 1; // or else sprite gets rendered behind background
 
 		// taking in prefab-specific stats
 		hp = enemy.hp;
@@ -94,9 +94,9 @@ public class Enemy : MonoBehaviour {
 
 	IEnumerator HitFlash(float flashTime){
 		hitSound.Play();
-		childPrefab.GetComponent<Renderer>().material.color = Color.red;
+		childPrefab.renderer.material.color = Color.red;
 		yield return new WaitForSeconds(flashTime);
-		childPrefab.GetComponent<Renderer>().material.color = Color.white;
+		childPrefab.renderer.material.color = Color.white;
 	}
 
 	public void GetHit(int damage){
@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour {
 		if (currentHP <= 0 && isAlive) {
 			deathSound.Play();
 			isAlive= false;
-			childPrefab.GetComponent<Renderer>().enabled = false;
+			childPrefab.renderer.enabled = false;
 			Debug.Log ("VICTORY");
 
 			exitBattle ();

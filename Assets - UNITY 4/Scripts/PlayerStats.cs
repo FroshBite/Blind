@@ -104,9 +104,9 @@ public class PlayerStats : MonoBehaviour {
 
 	public IEnumerator HitFlash(float flashTime){
 		hitSound.Play ();
-		GetComponent<Renderer>().material.color = Color.red;
+		renderer.material.color = Color.red;
 		yield return new WaitForSeconds(flashTime);
-		GetComponent<Renderer>().material.color = Color.white;
+		renderer.material.color = Color.white;
 	}
 
 
